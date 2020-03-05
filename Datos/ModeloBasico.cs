@@ -34,9 +34,9 @@ namespace Datos
 
         public virtual Guid Guid { get; protected set; }
         public virtual string Descripcion { get; protected set; }
-        public virtual List<EntidadSecundaria> Detalles { get; protected set; }
+        public virtual IList<EntidadSecundaria> Detalles { get; protected set; }
 
-        public void AgregarSecundaria(EntidadSecundaria secundaria)
+        public virtual void AgregarSecundaria(EntidadSecundaria secundaria)
         {
             Detalles.Add(secundaria);
         }
@@ -53,7 +53,7 @@ namespace Datos
         {
             Cantidad = cantidad;
         }
-
+        public virtual Guid Id { get; protected set; }
         public virtual Guid Encabezado { get; protected set; }
         public virtual int Cantidad { get; protected set; }
     }

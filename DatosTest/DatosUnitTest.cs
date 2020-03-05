@@ -1,3 +1,5 @@
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using Datos;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NHibernate;
@@ -26,7 +28,7 @@ namespace DatosTest
         {
             var modeloBasico = new ModeloBasico("Primero");
 
-            _contexto.SaveOrUpdate(modeloBasico);
+            _contexto.Save(modeloBasico);
 
             ModeloBasico modeloGuardado = _contexto.Load<ModeloBasico>(1);
 
@@ -40,9 +42,12 @@ namespace DatosTest
             agregado.AgregarSecundaria(new EntidadSecundaria(10));
             agregado.AgregarSecundaria(new EntidadSecundaria(15));
 
-            _contexto.SaveOrUpdate(agregado);
+            _contexto.Save(agregado);
+            _contexto.Flush();
 
-            var agregadoGuardado = _contexto.CreateFilter()
+            var agregadoGuardado = _contexto.Query<EntidadRaiz>().First();
+
+            Assert.IsNotNull(agregadoGuardado);
         }
 
         [TestCleanup]
