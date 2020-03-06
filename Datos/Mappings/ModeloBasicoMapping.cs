@@ -1,4 +1,5 @@
-﻿using FluentNHibernate.Mapping;
+﻿using Datos.Entidades;
+using FluentNHibernate.Mapping;
 
 namespace Datos.Mappings
 {
@@ -8,28 +9,8 @@ namespace Datos.Mappings
         {
             Id(p => p.Id);
             Map(p => p.Descripcion);
+            Map(p => p.ValorMoney).CustomSqlType("MONEY");
+            Map(p => p.ValorDecimal).CustomSqlType("DECIMAL(15, 10)");
         }
     }
-
-    public class EntidadRaizMapping : ClassMap<EntidadRaiz>
-    {
-        public EntidadRaizMapping()
-        {
-            Id(p => p.Guid);
-            Map(p => p.Descripcion);
-            HasMany<EntidadSecundaria>(a => a.Detalles)
-                .Cascade.All();
-        }
-    }
-
-    public class EntidadSecundariaMapping : ClassMap<EntidadSecundaria>
-    {
-        public EntidadSecundariaMapping()
-        {
-            Id(p => p.Id);
-            Map(p => p.Cantidad);
-            //References(m => m.Encabezado);
-        }
-    }
-
 }
