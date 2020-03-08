@@ -1,5 +1,7 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
@@ -8,6 +10,7 @@ using NHibernate.Cfg;
 using NHibernate.Tool.hbm2ddl;
 using Datos;
 using Datos.Entidades;
+using FluentNHibernate;
 
 namespace DatosTest
 {
@@ -26,14 +29,14 @@ namespace DatosTest
 
         public void Initialize()
         {
-            _sessionFactory = CreateSessionFactory();
+            _sessionFactory = CreateSessionFactory<EntidadRaiz>();
         }
 
-        private ISessionFactory CreateSessionFactory()
+        private ISessionFactory CreateSessionFactory<T>()
         {
             return Fluently.Configure()
                 .Database(SQLiteConfiguration.Standard.InMemory())
-                .Mappings(m => m.FluentMappings.AddFromAssemblyOf<EntidadRaiz>())
+                .Mappings(m => m.FluentMappings.AddFromAssemblyOf<T>())
                 .ExposeConfiguration(config =>
                 {
                     config.DataBaseIntegration(db =>
@@ -69,5 +72,4 @@ namespace DatosTest
         }
     }
 
-    
 }
