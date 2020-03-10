@@ -10,6 +10,7 @@ namespace Datos.Mappings
             Id(p => p.Guid)
                 .GeneratedBy.Guid();
             Map(p => p.Descripcion);
+            Map(p => p.Apellido);
             HasMany<EntidadSecundaria>(a => a.Detalles)
                 .KeyColumn("Encabezado")
                 .Not.KeyUpdate()

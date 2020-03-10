@@ -35,7 +35,7 @@ namespace DatosTest
         private ISessionFactory CreateSessionFactory<T>()
         {
             return Fluently.Configure()
-                .Database(SQLiteConfiguration.Standard.InMemory())
+                .Database(SQLiteConfiguration.Standard.UsingFile("TestBD.mdf"))
                 .Mappings(m => m.FluentMappings.AddFromAssemblyOf<T>())
                 .ExposeConfiguration(config =>
                 {
@@ -56,8 +56,11 @@ namespace DatosTest
         {
             ISession session = _sessionFactory.OpenSession();
 
-            var export = new SchemaExport(_configuration);
-            export.Execute(true, true, false, session.Connection, null);
+            //var export = new SchemaExport(_configuration);
+            //export.Execute(true, true, false, session.Connection, null);
+
+            var export2 = new SchemaUpdate(_configuration);
+            export2.Execute(true, true);
             
             return session;
         }

@@ -44,7 +44,7 @@ namespace DatosTest
         public void DebeGuardarAgregado()
         {
 
-            var agregado = new EntidadRaiz("Raiz");
+            var agregado = new EntidadRaiz("Raiz", "Diaz");
             agregado.AgregarSecundaria(new EntidadSecundaria(10));
             agregado.AgregarSecundaria(new EntidadSecundaria(15));
 

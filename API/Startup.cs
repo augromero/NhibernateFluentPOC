@@ -50,8 +50,9 @@ namespace API
             servicios.AddScoped<T>(proveedorDeServicios =>
             {
                 Configuration configuracion = null;
+
                 ISessionFactory sessionFactory = Fluently.Configure()
-                    .Database(SQLiteConfiguration.Standard.InMemory())
+                    .Database(SQLiteConfiguration.Standard.UsingFile("TestBD"))
                     .Mappings(m => m.FluentMappings.AddFromAssemblyOf<T>())
                     .ExposeConfiguration(config => configuracion = config)
                     .BuildSessionFactory();

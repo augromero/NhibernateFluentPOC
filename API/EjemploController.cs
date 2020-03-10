@@ -18,7 +18,7 @@ namespace API
         // GET
         public IActionResult Index()
         {
-            _contexto._sesion.Save(new EntidadRaiz("Hola mundo"));
+            _contexto._sesion.Save(new EntidadRaiz("Hola mundo", "Diaz"));
             _contexto._sesion.Flush();
             return Ok(_contexto.EntidadRaiz.ToList());
         }
